@@ -1,8 +1,18 @@
+import os
+
 import pandas as pd
 
 
-def read_data():
-    df = pd.read_csv("SCEC_DC\\1932.catalog", skiprows=10, header=None,
+def path_list():
+    paths = []
+    for file in os.listdir("SCEC_DC"):
+        if file.endswith(".catalog"):
+            paths.append(os.path.join("SCEC_DC", file))
+    return paths
+
+
+def read_data(path):
+    df = pd.read_csv(path, skiprows=10, header=None,
                      sep=r"\s*",
                      engine='python')  # Solved Problem For Reading Multile Spaces link:- https://stackoverflow.com/questions/12021730/can-pandas-handle-variable-length-whitespace-as-column-delimiters
 
@@ -22,7 +32,5 @@ def read_data():
     df = df.rename(columns={10: "EVID"})
     df = df.rename(columns={11: "NPH"})
     df = df.rename(columns={12: "NGRM"})
-
-    # print(df.head())
 
     return df
