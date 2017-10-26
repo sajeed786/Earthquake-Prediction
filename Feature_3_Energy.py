@@ -22,14 +22,8 @@ def read_feature_3(path):
     for month in months_available:
         dE.append(np.sum(groups.get_group(month)["Magnitude"].apply(lambda x: np.sqrt(10**(11.8+1.5*x)))))
     dE = np.array(dE)
-
-    send = []
-    for i in range(0,len(T)):
-        if T[i] == 0:
-            continue
-        #print("dE: {},T: {},dE/T: {}".format(dE[i],T[i],dE[i]/T[i]))
-        send.append(dE[i]/T[i])
-    return np.array(send)
+    old = np.seterr('ignore')  # used to ignore divide by zero exception
+    return np.array(dE / T)
 
 def read_full_feature_3():
     Energy = []
