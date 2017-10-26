@@ -2,7 +2,8 @@ import os
 
 import pandas as pd
 
-
+threshold = 4.0
+pd.options.mode.chained_assignment = None  # default='warn'
 def path_list():
     paths = []
     for file in os.listdir("SCEC_DC"):
