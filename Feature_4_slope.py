@@ -17,7 +17,7 @@ def read_feature_4(path):
     groups = new_df.groupby(
         new_df.Date.dt.month)  # Problem Solved By link:- https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
     months_available = groups.groups.keys()  # https://stackoverflow.com/questions/28844535/python-pandas-groupby-get-list-of-groups
-
+    
 
 def read_full_feature_4():
     slope = []
