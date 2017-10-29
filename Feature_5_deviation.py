@@ -8,7 +8,8 @@ from filter import read_data, path_list, threshold
 
 paths = path_list()
 
-def read_feature_4(path):
+
+def read_feature_5(path):
     df = read_data(path)
 
     df['Magnitude'] = df['Magnitude'].apply(pd.to_numeric)
@@ -38,21 +39,23 @@ def read_feature_4(path):
         part3 = np.square(np.sum(np.array(M)))
         part4 = np.sum(np.square(np.array(M)))
         b = 0.0
-        a = 1.0
+        eta = 0.0
         if n == 1:
             b = 0.0
             a = np.sum(np.array(N)) / n
+            eta = 0.0
         else:
             b = (n * part1 - part2) / (part3 - n * part4)
             M = b * np.array(M)
             a = np.sum(np.array(N) + np.array(M)) / n
-
-        lst.append((a, b))
+            eta = np.sum(np.square(np.array(N) - (a - M))) / (n - 1)
+        lst.append(eta)
     # print(lst)
     return np.array(lst)
 
-def read_full_feature_4():
-    slope = []
+
+def read_full_feature_5():
+    deviation = []
     for path in paths:
-        slope.append(read_feature_4(path))
-    return np.array(slope)
+        deviation.append(read_feature_5(path))
+    return np.array(deviation)
